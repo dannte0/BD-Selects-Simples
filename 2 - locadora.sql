@@ -65,7 +65,7 @@ PRIMARY KEY(DVDnum, Clientenum_cadastro, data_locacao),
 FOREIGN KEY(DVDnum) REFERENCES DVD(num),
 FOREIGN KEY(Clientenum_cadastro) REFERENCES Cliente(num_cadastro),
 CONSTRAINT chk_datadev_dataloc CHECK(data_devolucao > data_locacao),
-CONSTRAINT chk_dataloc_positivo CHECK(data_locacao > 0)
+CONSTRAINT chk_valor_positivo CHECK(valor > 0)
 )
 
 GO
@@ -158,3 +158,29 @@ DELETE Filme
 WHERE titulo = 'Sing'
 
 --SELECTS
+SELECT titulo FROM Filme
+WHERE ano = 2014
+
+SELECT id, ano FROM Filme
+WHERE titulo = 'Birdman'
+
+SELECT id, ano FROM Filme
+WHERE titulo LIKE '%plash'
+
+SELECT * FROM Estrela
+WHERE nome LIKE 'Steve%'
+
+SELECT Filmeid, CONVERT(CHAR(10), data_fabricacao, 103) AS fab FROM DVD
+WHERE data_fabricacao > '2020-01-01'
+
+SELECT DVDnum, data_locacao, data_devolucao, valor, CAST(valor + 2 AS DECIMAL(7,2)) AS valor_com_multa FROM Locacao
+WHERE Clientenum_cadastro = 5505
+
+SELECT logradouro, num, cep FROM Cliente
+WHERE nome = 'Matilde Luz'
+
+SELECT nome_real FROM Estrela
+WHERE nome = 'Michael Keaton'
+
+SELECT num_cadastro, nome, logradouro+ ', ' +CAST(num AS VARCHAR(10))+ ' - ' + cep AS end_comp FROM Cliente
+WHERE num_cadastro >= 5503
